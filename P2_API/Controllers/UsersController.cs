@@ -52,12 +52,13 @@ namespace P2_API.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> CreateUserAsync(string username, string password)
+        public async Task<bool> CreateUserAsync(string username, string password, string email)
         {
             User newuser = new User()
             {
                 Username = username,
                 Password = password,
+                Email = email,
                 PreferencesModel = new Preferences()
                 {
                     Aquarium = true,
@@ -79,12 +80,13 @@ namespace P2_API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<User>> UpdateUserAsync(int id, string username, string password)
+        public async Task<ActionResult<User>> UpdateUserAsync(int id, string username, string password, string email)
         {
             User grabbeduser = await _db.Users.FindAsync(id);
 
             grabbeduser.Username = username;
             grabbeduser.Password = password;
+            grabbeduser.Email = email;
 
             _db.Update(grabbeduser);
             await _db.SaveChangesAsync();
