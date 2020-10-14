@@ -34,11 +34,13 @@ steps:
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: true
 
-- task: AzureWebApp@1
-  displayName: 'Deploy Azure Web App'
+- task: AzureRmWebAppDeployment@4
   inputs:
-    azureSubscription: 'Azure subscription 1(4d58c592-1d2c-41cc-99ec-37f71536b901)'
-    appName: WinnerTeamBackEnd
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(1)(4d58c592-1d2c-41cc-99ec-37f71536b901)'
     appType: 'webApp'
-    package: $(Build.ArtifactStagingDirectory)/**/*.zip
-    deploymentMethod: 'auto'
+    WebAppName: 'WinnerTeamBackEnd'
+    deployToSlotOrASE: true
+    ResourceGroupName: 'P2ResourceGroup'
+    SlotName: 'production'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
