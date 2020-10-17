@@ -12,6 +12,7 @@ namespace P2_API.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
+        public string City { get; set; }
         public int PreferencesId { get; set; }
         public Preferences PreferencesModel { get; set; }
     }
