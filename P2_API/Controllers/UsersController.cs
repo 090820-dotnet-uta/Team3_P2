@@ -96,12 +96,20 @@ namespace P2_API.Controllers
 
             User grabbeduser = await _db.Users.FindAsync(user.UserId);
 
-            grabbeduser = user;
+            grabbeduser.Username = user.Username;
+            grabbeduser.Password = user.Password;
+            grabbeduser.Email = user.Email;
+            grabbeduser.PreferencesModel.Art = user.PreferencesModel.Art;
+            grabbeduser.PreferencesModel.Animals = user.PreferencesModel.Animals;
+            grabbeduser.PreferencesModel.Beauty = user.PreferencesModel.Beauty;
+            grabbeduser.PreferencesModel.Entertainment = user.PreferencesModel.Entertainment;
+            grabbeduser.PreferencesModel.Fitness = user.PreferencesModel.Fitness;
+            grabbeduser.PreferencesModel.HomeDecour = user.PreferencesModel.HomeDecour;
+            grabbeduser.PreferencesModel.Learning = user.PreferencesModel.Learning;
+            grabbeduser.PreferencesModel.Nightlife = user.PreferencesModel.Nightlife;
+            grabbeduser.PreferencesModel.Religion = user.PreferencesModel.Religion;
+            grabbeduser.PreferencesModel.Shopping = user.PreferencesModel.Shopping;
 
-            //grabbeduser.Username = user.Username;
-            //grabbeduser.Password = user.Password;
-            //grabbeduser.Email = user.Email;
-            //grabbeduser.PreferencesModel = user.PreferencesModel;
 
             _db.Update(grabbeduser);
             await _db.SaveChangesAsync();
