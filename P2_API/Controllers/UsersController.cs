@@ -96,29 +96,28 @@ namespace P2_API.Controllers
 
             User grabbeduser = await _db.Users.FindAsync(user.UserId);
 
-            grabbeduser = user;
-            //grabbeduser.Username = user.Username;
-            //grabbeduser.Password = user.Password;
-            //grabbeduser.Email = user.Email;
+            grabbeduser.Username = user.Username;
+            grabbeduser.Password = user.Password;
+            grabbeduser.Email = user.Email;
 
-            //Preferences newprefs = user.PreferencesModel;
+            Preferences newprefs = user.PreferencesModel;
 
-            //newprefs.Art = user.PreferencesModel.Art;
-            //newprefs.Animals = user.PreferencesModel.Animals;
-            //newprefs.Beauty = user.PreferencesModel.Beauty;
-            //newprefs.Entertainment = user.PreferencesModel.Entertainment;
-            //newprefs.Fitness = user.PreferencesModel.Fitness;
-            //newprefs.HomeDecour = user.PreferencesModel.HomeDecour;
-            //newprefs.Learning = user.PreferencesModel.Learning;
-            //newprefs.Nightlife = user.PreferencesModel.Nightlife;
-            //newprefs.Religion = user.PreferencesModel.Religion;
-            //newprefs.Shopping = user.PreferencesModel.Shopping;
+            newprefs.Art = user.PreferencesModel.Art;
+            newprefs.Animals = user.PreferencesModel.Animals;
+            newprefs.Beauty = user.PreferencesModel.Beauty;
+            newprefs.Entertainment = user.PreferencesModel.Entertainment;
+            newprefs.Fitness = user.PreferencesModel.Fitness;
+            newprefs.HomeDecour = user.PreferencesModel.HomeDecour;
+            newprefs.Learning = user.PreferencesModel.Learning;
+            newprefs.Nightlife = user.PreferencesModel.Nightlife;
+            newprefs.Religion = user.PreferencesModel.Religion;
+            newprefs.Shopping = user.PreferencesModel.Shopping;
 
-            //grabbeduser.PreferencesModel = newprefs;
+            grabbeduser.PreferencesModel = newprefs;
 
 
             _db.Update(grabbeduser);
-            //_db.Update(newprefs);
+            _db.Update(newprefs);
             await _db.SaveChangesAsync();
 
             return grabbeduser;
