@@ -99,19 +99,25 @@ namespace P2_API.Controllers
             grabbeduser.Username = user.Username;
             grabbeduser.Password = user.Password;
             grabbeduser.Email = user.Email;
-            grabbeduser.PreferencesModel.Art = user.PreferencesModel.Art;
-            grabbeduser.PreferencesModel.Animals = user.PreferencesModel.Animals;
-            grabbeduser.PreferencesModel.Beauty = user.PreferencesModel.Beauty;
-            grabbeduser.PreferencesModel.Entertainment = user.PreferencesModel.Entertainment;
-            grabbeduser.PreferencesModel.Fitness = user.PreferencesModel.Fitness;
-            grabbeduser.PreferencesModel.HomeDecour = user.PreferencesModel.HomeDecour;
-            grabbeduser.PreferencesModel.Learning = user.PreferencesModel.Learning;
-            grabbeduser.PreferencesModel.Nightlife = user.PreferencesModel.Nightlife;
-            grabbeduser.PreferencesModel.Religion = user.PreferencesModel.Religion;
-            grabbeduser.PreferencesModel.Shopping = user.PreferencesModel.Shopping;
+
+            Preferences newprefs = user.PreferencesModel;
+
+            newprefs.Art = user.PreferencesModel.Art;
+            newprefs.Animals = user.PreferencesModel.Animals;
+            newprefs.Beauty = user.PreferencesModel.Beauty;
+            newprefs.Entertainment = user.PreferencesModel.Entertainment;
+            newprefs.Fitness = user.PreferencesModel.Fitness;
+            newprefs.HomeDecour = user.PreferencesModel.HomeDecour;
+            newprefs.Learning = user.PreferencesModel.Learning;
+            newprefs.Nightlife = user.PreferencesModel.Nightlife;
+            newprefs.Religion = user.PreferencesModel.Religion;
+            newprefs.Shopping = user.PreferencesModel.Shopping;
+
+            grabbeduser.PreferencesModel = newprefs;
 
 
             _db.Update(grabbeduser);
+            _db.Update(newprefs);
             await _db.SaveChangesAsync();
 
             return grabbeduser;
