@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using P2_API.Data;
 using P2_API.Models;
 
@@ -52,13 +54,13 @@ namespace P2_API.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> CreateUserAsync(string username, string password, string email)
+        public async Task<ActionResult<User>> CreateUserAsync(User user)
         {
             User newuser = new User()
             {
-                Username = username,
-                Password = password,
-                Email = email,
+                Username = user.Username,
+                Password = user.Password,
+                Email = user.Email,
                 PreferencesModel = new Preferences()
                 {
                     Aquarium = true,
@@ -71,22 +73,24 @@ namespace P2_API.Controllers
             {
                 await _db.Users.AddAsync(newuser);
                 await _db.SaveChangesAsync();
-                return true;
+                return newuser;
             }
             catch (SqlException e)
             {
-                return false;
+                return NoContent();
             }
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<User>> UpdateUserAsync(int id, string username, string password, string email)
+        public async Task<ActionResult<User>> UpdateUserAsync(User user)
         {
-            User grabbeduser = await _db.Users.FindAsync(id);
+            // User grabbeduser = await _db.Users.FindAsync(id);
 
-            grabbeduser.Username = username;
-            grabbeduser.Password = password;
-            grabbeduser.Email = email;
+            User grabbeduser = await _db.Users.FindAsync(user.UserId);
+
+            grabbeduser.Username = user.Username;
+            grabbeduser.Password = user.Password;
+            grabbeduser.Email = user.Email;
 
             _db.Update(grabbeduser);
             await _db.SaveChangesAsync();

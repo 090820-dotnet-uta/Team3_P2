@@ -33,7 +33,8 @@ namespace P2_API
                                   builder =>
                                   {
                                       builder.WithOrigins("http://localhost:4200/",
-                                                          "https://localhost:5001/").AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+                                                          "https://localhost:5001/",
+                                                          "https://winnerteambackend.azurewebsites.net/").AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
                                   });
             });
             services.AddDbContext<P2Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
