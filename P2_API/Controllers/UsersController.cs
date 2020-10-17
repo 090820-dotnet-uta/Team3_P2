@@ -63,9 +63,17 @@ namespace P2_API.Controllers
                 Email = user.Email,
                 PreferencesModel = new Preferences()
                 {
-                    Aquarium = true,
-                    Boxing = false,
-                    Movies = true
+                    Animals = user.PreferencesModel.Animals,
+                    Art = user.PreferencesModel.Art,
+                    Beauty = user.PreferencesModel.Beauty,
+                    Entertainment = user.PreferencesModel.Entertainment,
+                    Fitness = user.PreferencesModel.Fitness,
+                    HomeDecour = user.PreferencesModel.HomeDecour,
+                    Learning = user.PreferencesModel.Learning,
+                    Nightlife = user.PreferencesModel.Nightlife,
+                    Religion = user.PreferencesModel.Religion,
+                    Shopping = user.PreferencesModel.Shopping,
+
                 }
             };
 
@@ -88,9 +96,12 @@ namespace P2_API.Controllers
 
             User grabbeduser = await _db.Users.FindAsync(user.UserId);
 
-            grabbeduser.Username = user.Username;
-            grabbeduser.Password = user.Password;
-            grabbeduser.Email = user.Email;
+            grabbeduser = user;
+
+            //grabbeduser.Username = user.Username;
+            //grabbeduser.Password = user.Password;
+            //grabbeduser.Email = user.Email;
+            //grabbeduser.PreferencesModel = user.PreferencesModel;
 
             _db.Update(grabbeduser);
             await _db.SaveChangesAsync();
