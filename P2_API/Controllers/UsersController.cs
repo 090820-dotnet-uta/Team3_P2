@@ -114,6 +114,7 @@ namespace P2_API.Controllers
             grabbeduser.Username = user.Username;
             grabbeduser.Password = user.Password;
             grabbeduser.Email = user.Email;
+            grabbeduser.City = user.City;
 
             Preferences newprefs = user.PreferencesModel;
 
