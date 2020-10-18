@@ -53,6 +53,20 @@ namespace P2_API.Controllers
             return grabbeduser;
         }
 
+        [HttpGet]
+        [Route("{id}/preferences")]
+        public async Task<ActionResult<Preferences>> GetUserPreferencesAsync(int id)
+        {
+            User grabbeduser = await _db.Users.FindAsync(id);
+            if (grabbeduser == null)
+            {
+                return NoContent();
+            }
+
+            Preferences prefs = await _db.Preferences.FindAsync(id);
+            return prefs;
+        }
+
         [HttpPost]
         public async Task<ActionResult<User>> CreateUserAsync(User user)
         {
