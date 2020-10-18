@@ -9,6 +9,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace P2_API_UnitTests
 {
@@ -21,6 +22,9 @@ namespace P2_API_UnitTests
             var options = new DbContextOptionsBuilder<P2Context>().UseInMemoryDatabase(databaseName: "TestMethod1").Options;
             using (var context = new P2Context(options))
             {
+                _usersController = new UsersController(context);
+
+
                 Preferences prefs = new Preferences { Animals = true, PreferencesId = 1, Art = true, Beauty = false, Entertainment = true, Fitness = false, HomeDecour = true, Learning = false, Nightlife = true, Religion = true, Shopping = false };
                 User user1 = new User { City = "c", Email = "e", Password = "p", PreferencesId = 1, PreferencesModel = prefs };
                 User user2 = new User { City = "ci", Email = "em", Password = "pa", PreferencesId = 2, PreferencesModel = prefs };
@@ -29,8 +33,10 @@ namespace P2_API_UnitTests
                 context.Users.Add(user2);
                 context.Users.Add(user3);
                 context.SaveChanges();
-                IEnumerable<User> testList = (IEnumerable<User>)_usersController.GetAllUsersAsync();
+                IEnumerable<User> testList = _usersController.GetAllUsersAsync().Result;
+                testList = testList.ToList();
 
+                Assert.Equal(3, testList.Count());
                 Assert.NotEmpty(testList);
             }
 
