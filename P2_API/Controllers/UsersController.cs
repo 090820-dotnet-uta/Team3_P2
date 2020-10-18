@@ -75,6 +75,7 @@ namespace P2_API.Controllers
                 Username = user.Username,
                 Password = user.Password,
                 Email = user.Email,
+                City = user.City,
                 PreferencesModel = new Preferences()
                 {
                     Animals = user.PreferencesModel.Animals,
