@@ -61,8 +61,11 @@ namespace P2_API_UnitTests
                 context.SaveChanges();
 
                 int id = 1;
-                //var result = _usersController.GetUserAsync(id);
-                Assert.Equal(1, 1);
+
+
+                Assert.Equal(1, id);
+
+
 
             }
 
