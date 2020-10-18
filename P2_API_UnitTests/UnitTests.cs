@@ -155,5 +155,32 @@ namespace P2_API_UnitTests
             }
 
         }
+        [Fact]
+        public async void TestDeleteUser()
+        {
+            var options = new DbContextOptionsBuilder<P2Context>().UseInMemoryDatabase(databaseName: "TestMethod6").Options;
+            using (var context = new P2Context(options))
+            {
+                _usersController = new UsersController(context);
+
+
+                Preferences prefs = new Preferences { Animals = true, PreferencesId = 1, Art = true, Beauty = false, Entertainment = true, Fitness = false, HomeDecour = true, Learning = false, Nightlife = true, Religion = true, Shopping = false };
+                User user1 = new User { City = "c", Email = "e", Password = "p", PreferencesId = 1, PreferencesModel = prefs };
+                User user2 = new User { City = "ci", Email = "em", Password = "pa", PreferencesId = 2, PreferencesModel = prefs };
+                User user3 = new User { City = "cit", Email = "ema", Password = "pas", PreferencesId = 3, PreferencesModel = prefs };
+
+                context.Users.Add(user1);
+                context.Users.Add(user2);
+                context.Users.Add(user3);
+                context.SaveChanges();
+
+                var response = await _usersController.DeleteUserAsync(3);
+                var x = context.Users.Find(3);
+
+                Assert.Null(x);
+                 
+            }
+
+        }
     }
 }
