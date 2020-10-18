@@ -45,7 +45,7 @@ namespace P2_API_UnitTests
         [Fact]
         public void TestGetUser()
         {
-            var options = new DbContextOptionsBuilder<P2Context>().UseInMemoryDatabase(databaseName: "TestMethod1").Options;
+            var options = new DbContextOptionsBuilder<P2Context>().UseInMemoryDatabase(databaseName: "TestMethod2").Options;
             using (var context = new P2Context(options))
             {
                 _usersController = new UsersController(context);
