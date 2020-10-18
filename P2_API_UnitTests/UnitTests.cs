@@ -10,11 +10,19 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using System.Web;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Data.SqlClient;
+using System.Net;
+using System.Web.Mvc;
 
 namespace P2_API_UnitTests
 {
     public class UnitTests
     {
+
         public UsersController _usersController;
         [Fact]
         public void TestGetAll()
@@ -178,8 +186,39 @@ namespace P2_API_UnitTests
                 var x = context.Users.Find(3);
 
                 Assert.Null(x);
-                 
+
             }
+
+        }
+        [Fact]
+        public async void TestGetUserNullTry()
+        {
+            var options = new DbContextOptionsBuilder<P2Context>().UseInMemoryDatabase(databaseName: "TestMethod7").Options;
+            using (var context = new P2Context(options))
+            {
+                _usersController = new UsersController(context);
+
+
+                Preferences prefs = new Preferences { Animals = true, PreferencesId = 1, Art = true, Beauty = false, Entertainment = true, Fitness = false, HomeDecour = true, Learning = false, Nightlife = true, Religion = true, Shopping = false };
+                User user1 = new User { City = "c", Email = "e", Password = "p", PreferencesId = 1, PreferencesModel = prefs };
+                User user2 = new User { City = "ci", Email = "em", Password = "pa", PreferencesId = 2, PreferencesModel = prefs };
+                User user3 = new User { City = "cit", Email = "ema", Password = "pas", PreferencesId = 3, PreferencesModel = prefs };
+                context.Users.Add(user1);
+                context.Users.Add(user2);
+                context.Users.Add(user3);
+                context.SaveChanges();
+
+                int id = 4;
+                var result = (await _usersController.GetUserAsync(id));
+
+                var code = result.Value;
+
+                Assert.Null(code);
+
+
+
+            }
+
 
         }
     }

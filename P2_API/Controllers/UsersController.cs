@@ -143,18 +143,14 @@ namespace P2_API.Controllers
         public async Task<bool> DeleteUserAsync(int id)
         {
             bool flag = false;
-            try
+            User grabbeduser = await _db.Users.FindAsync(id);
+            if (grabbeduser != null)
             {
-                User grabbeduser = await _db.Users.FindAsync(id);
                 await Task.Delay(500);
                 _db.Remove(grabbeduser);
                 await _db.SaveChangesAsync();
                 flag = true;
             }
-            catch (SqlException e)
-            {
-            }
-
             return flag;
         }
     }
