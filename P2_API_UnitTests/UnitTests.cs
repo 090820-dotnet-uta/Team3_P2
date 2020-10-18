@@ -203,17 +203,22 @@ namespace P2_API_UnitTests
                 User user1 = new User { City = "c", Email = "e", Password = "p", PreferencesId = 1, PreferencesModel = prefs };
                 User user2 = new User { City = "ci", Email = "em", Password = "pa", PreferencesId = 2, PreferencesModel = prefs };
                 User user3 = new User { City = "cit", Email = "ema", Password = "pas", PreferencesId = 3, PreferencesModel = prefs };
+                User user4 = new User { City = "cit", Email = "ema", Password = "pas", PreferencesId = 3, PreferencesModel = prefs, UserId = 999};
                 context.Users.Add(user1);
                 context.Users.Add(user2);
                 context.Users.Add(user3);
                 context.SaveChanges();
 
                 int id = 4;
-                var result = (await _usersController.GetUserAsync(id));
+                var result1 = (await _usersController.GetUserAsync(id)).Value;
+                var result2 = (await _usersController.UpdateUserAsync(user4)).Value;
+                var result3 = (await _usersController.GetUserPreferencesAsync(id)).Value;
+                var result4 = (await _usersController.DeleteUserAsync(id));
 
-                var code = result.Value;
-
-                Assert.Null(code);
+                Assert.Null(result1);
+                Assert.Null(result2);
+                Assert.Null(result3);
+                Assert.False(result4);
 
 
 

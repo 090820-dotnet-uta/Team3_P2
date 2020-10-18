@@ -110,7 +110,10 @@ namespace P2_API.Controllers
             // User grabbeduser = await _db.Users.FindAsync(id);
 
             User grabbeduser = await _db.Users.FindAsync(user.UserId);
-
+            if (grabbeduser == null) 
+            {
+                return NoContent();
+            }
             grabbeduser.Username = user.Username;
             grabbeduser.Password = user.Password;
             grabbeduser.Email = user.Email;
