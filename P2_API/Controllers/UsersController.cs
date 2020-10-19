@@ -76,6 +76,8 @@ namespace P2_API.Controllers
                 Password = user.Password,
                 Email = user.Email,
                 City = user.City,
+                Latitude = user.Latitude,
+                Longitude = user.Longitude,
                 PreferencesModel = new Preferences()
                 {
                     Animals = user.PreferencesModel.Animals,
@@ -110,7 +112,7 @@ namespace P2_API.Controllers
             // User grabbeduser = await _db.Users.FindAsync(id);
 
             User grabbeduser = await _db.Users.FindAsync(user.UserId);
-            if (grabbeduser == null) 
+            if (grabbeduser == null)
             {
                 return NoContent();
             }
@@ -118,6 +120,8 @@ namespace P2_API.Controllers
             grabbeduser.Password = user.Password;
             grabbeduser.Email = user.Email;
             grabbeduser.City = user.City;
+            grabbeduser.Longitude = user.Longitude;
+            grabbeduser.Latitude = user.Latitude;
 
             Preferences newprefs = user.PreferencesModel;
 
