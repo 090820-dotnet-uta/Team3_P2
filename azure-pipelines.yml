@@ -26,8 +26,8 @@ steps:
     SonarCloud: 'Project2_Team3_SonarCloud'
     organization: 'chriskeller94'
     scannerMode: 'MSBuild'
-    projectKey: 'chriskeller94_Project2_Team3'
-    projectName: 'Project2_Team3'
+    projectKey: 'chriskeller94_Project2_Team3_API'
+    projectName: 'Project2_Team3_API'
     extraProperties: |
      sonar.cs.opencover.reportsPaths="$(Agent.TempDirectory)/**/coverage.opencover.xml"
      sonar.coverage.exclusions= **/Migrations/*, **/Data/*, **/Models
